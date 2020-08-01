@@ -1,0 +1,2 @@
+debian/tmp/libnvidia-nscq.so usr/lib/#TARGETS_DIR#-gnu/
+debian/tmp/libnvidia-nscq.so.* usr/lib/#TARGETS_DIR#-gnu/
