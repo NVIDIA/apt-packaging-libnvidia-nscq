@@ -108,6 +108,18 @@ mv libnvidia_nscq/* $PWD
 rmdir libnvidia_nscq
 ```
 
+### Check API version
+```shell
+find -type l -name "*.so.*" | sort -uVr | awk -F ".so." '{print $2}' | awk NR==1
+> 1.1
+```
+
+### Check SONAME
+```shell
+objdump -p libnvidia-nscq.so.[4-9][0-9][0-9]* | grep SONAME | awk -F ".so." '{print $2}'
+> 1
+```
+
 ### Fill variables
 ```shell
 make -f debian/rules fill_templates VERSION=460.32.03 BRANCH=460 DEB_HOST_ARCH=amd64
