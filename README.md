@@ -19,7 +19,7 @@ NVIDIA NVSwitch Configuration and Query (NSCQ) library provides a stable driver 
 - [Prerequisites](#Prerequisites)
   * [Clone this git repository](#Clone-this-git-repository)
   * [Install build dependencies](#Install-build-dependencies)
-- [Build-Manually](#Build-Manually)
+- [Building Manually](#Building-Manually)
 - [Related](#Related)
   * [Fabric Manager](#Fabric-Manager)
   * [NVIDIA driver](#NVIDIA-driver)
@@ -145,6 +145,13 @@ ls *.deb
 
 - nvidia-driver
   * [https://github.com/NVIDIA/ubuntu-packaging-nvidia-driver](https://github.com/NVIDIA/ubuntu-packaging-nvidia-driver)
+
+
+## See also
+
+### RPM
+
+  * [https://github.com/NVIDIA/yum-packaging-libnvidia-nscq](https://github.com/NVIDIA/yum-packaging-libnvidia-nscq)
 
 
 ## Contributing
