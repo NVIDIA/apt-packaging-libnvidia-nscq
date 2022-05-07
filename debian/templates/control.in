@@ -27,7 +27,7 @@ Priority: optional
 Standards-Version: 3.8.0
 
 Package: libnvidia-nscq-#MAJOR#
-Architecture: amd64
+Architecture: amd64 arm64
 Depends: ${misc:Depends}
 Provides: libnvidia-nscq, nscq#SONAME#, nscq-api
 Replaces: libnvidia-nscq
