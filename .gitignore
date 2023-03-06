@@ -2,4 +2,4 @@ build
 *.buildinfo
 *.changes
 *.deb
-*-archive.tar.xz
+*-archive*
