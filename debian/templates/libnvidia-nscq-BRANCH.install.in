@@ -1,0 +1,2 @@
+debian/tmp/libnvidia-nscq.so    #DEBLIBINSTDIR#
+debian/tmp/libnvidia-nscq.so.*  #DEBLIBINSTDIR#
