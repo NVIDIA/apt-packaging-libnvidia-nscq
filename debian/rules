@@ -30,9 +30,11 @@ TIMESTAMP       := $(shell date -R)
 SONAME          := $(shell objdump -p libnvidia-nscq.so.[0-9][0-9][0-9]* | grep SONAME | rev | cut -d . -f 1 | rev)
 
 ifeq ($(DEB_HOST_ARCH),amd64)
-DEBLIBINSTDIR   ?= /usr/lib/x86_64-linux-gnu
+DEBLIBINSTDIR   ?= usr/lib/x86_64-linux-gnu
 else ifeq ($(DEB_HOST_ARCH),ppc64el)
-DEBLIBINSTDIR   ?= /usr/lib/powerpc64le-linux-gnu
+DEBLIBINSTDIR   ?= usr/lib/powerpc64le-linux-gnu
+else ifeq ($(DEB_HOST_ARCH),arm64)
+DEBLIBINSTDIR   ?= usr/lib/aarch64-linux-gnu
 endif
 
 %:

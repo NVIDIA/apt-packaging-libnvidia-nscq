@@ -1,0 +1,3 @@
+debian/tmp/libnvidia-nscq.so*   #DEBLIBINSTDIR#
+debian/tmp/nscq-cli             usr/bin/
+debian/tmp/nscq-api             usr/include/
