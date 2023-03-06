@@ -65,6 +65,9 @@ override_dh_auto_install:
 override_dh_makeshlibs:
 	DEB_BUILD_GNU_TYPE=$(DEB_HOST_GNU_TYPE) dh_makeshlibs
 
+override_dh_auto_configure:
+	cp -f LICENSE debian/copyright
+
 #
 # Turn off a few of the debhelper scripts
 #
