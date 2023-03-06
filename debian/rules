@@ -27,7 +27,7 @@ VERSION         ?= 999
 BRANCH          ?= 999
 REVISION        ?= 1
 TIMESTAMP       := $(shell date -R)
-SONAME          := $(shell objdump -p libnvidia-nscq.so.[0-9][0-9][0-9]* | grep SONAME | rev | cut -d . -f 1 | rev)
+SONAME          := $(shell objdump -p lib/libnvidia-nscq.so.[0-9][0-9][0-9]* | grep SONAME | rev | cut -d . -f 1 | rev)
 
 ifeq ($(DEB_HOST_ARCH),amd64)
 DEBLIBINSTDIR   ?= usr/lib/x86_64-linux-gnu
@@ -66,6 +66,9 @@ override_dh_auto_install:
 
 override_dh_makeshlibs:
 	DEB_BUILD_GNU_TYPE=$(DEB_HOST_GNU_TYPE) dh_makeshlibs
+
+override_dh_auto_configure:
+	cp -f LICENSE debian/copyright
 
 #
 # Turn off a few of the debhelper scripts
