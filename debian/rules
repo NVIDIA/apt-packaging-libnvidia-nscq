@@ -27,6 +27,7 @@ VERSION         ?= 999
 BRANCH          ?= 999
 REVISION        ?= 1
 TIMESTAMP       := $(shell date -R)
+SONAME          := $(shell objdump -p libnvidia-nscq.so.[0-9][0-9][0-9]* | grep SONAME | rev | cut -d . -f 1 | rev)
 
 ifeq ($(DEB_HOST_ARCH),amd64)
 DEBLIBINSTDIR   ?= /usr/lib/x86_64-linux-gnu
@@ -51,6 +52,7 @@ fill_templates:
 		          -e "s|BRANCH|$(BRANCH)|"`; \
 		sed -e "s|#VERSION#|$(VERSION)|g" \
 		    -e "s|#BRANCH#|$(BRANCH)|g" \
+		    -e "s|#SONAME#|$(SONAME)|g" \
 		    -e "s|#REVISION#|$(REVISION)|g" \
 		    -e "s|#TIMESTAMP#|$(TIMESTAMP)|g" \
 		    -e "s|#DEBLIBINSTDIR#|$(DEBLIBINSTDIR)|g" \
