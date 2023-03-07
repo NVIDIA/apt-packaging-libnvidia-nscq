@@ -33,11 +33,11 @@ NVIDIA NVSwitch Configuration and Query (NSCQ) library provides a stable driver 
 This repo contains the template files used to build the following **DEB** packages:
 
 
-> _note:_ `XXX` is the first `.` delimited field in the driver version, ex: `460` in `460.32.03`
+> _note:_ `XXX` is the first `.` delimited field in the driver version, ex: `525` in `525.85.12`
 
 ```shell
 - libnvidia-nscq-XXX
-> ex: libnvidia-nscq-460_460.32.03-1_amd64.deb
+> ex: libnvidia-nscq-525_525.85.12-1_amd64.deb
 ```
 
 
@@ -60,7 +60,7 @@ This repo contains the template files used to build the following **DEB** packag
 
 ### Clone this git repository:
 
-Supported branches: `main`
+Supported branches as described in the [NVIDIA Datacenter Drivers](https://docs.nvidia.com/datacenter/tesla/drivers/index.html#cuda-drivers) documentation.
 
 ```shell
 git clone https://github.com/NVIDIA/apt-packaging-libnvidia-nscq
@@ -68,9 +68,9 @@ git clone https://github.com/NVIDIA/apt-packaging-libnvidia-nscq
 
 ### Download a NSCQ tarball:
 
-* https://developer.download.nvidia.com/compute/cuda/redist/libnvidia_nscq/
+* https://developer.download.nvidia.com/compute/nvidia-driver/redist/libnvidia_nscq/
 
-  *ex:* libnvidia_nscq-linux-x86_64-460.32.03.tar.gz
+  *ex:* libnvidia_nscq-linux-x86_64-525.85.12-archive.tar.xz
 
 ### Install build dependencies
 > *note:* these are only needed for building not installation
@@ -85,12 +85,13 @@ apt-get install debhelper devscripts dpkg-dev
 
 ## Building Manually
 
-### Parse JSON to retrieve download URL
+### Download tarball via redistrib JSON
 ```shell
-baseURL="https://developer.download.nvidia.com/compute/cuda/redist"
-curl -s $baseURL/redistrib_460.32.03.json | \
-jq -r '."libnvidia_nscq" | ."460.32.03" | ."linux-x86_64"' | \
-sed "s|^|$baseURL/|"
+baseURL="https://developer.download.nvidia.com/compute/nvidia-driver/redist"
+downloadURL=$(curl -s $baseURL/redistrib_525.85.12.json | \
+jq -r '."libnvidia_nscq" | ."linux-x86_64" | ."relative_path"' | \
+sed "s|^|$baseURL/|")
+curl -O $downloadURL
 ```
 
 ### Create a temp directory
@@ -100,31 +101,32 @@ mkdir build
 rsync -a debian build/
 ```
 
-### Extract tarball
+### Download and extract tarball
 ```shell
-tar -C build/ -xf ../libnvidia_nscq*.tar.gz
+tar -C build/ -xf ../libnvidia_nscq*.tar.xz
 cd build
-mv libnvidia_nscq/* $PWD
-rmdir libnvidia_nscq
+mv libnvidia_nscq*/* $PWD
+rmdir libnvidia_nscq*
 ```
 
 ### Check API version
 ```shell
 find -type l -name "*.so.*" | sort -uVr | awk -F ".so." '{print $2}' | awk NR==1
-> 1.1
+> 2.0
 ```
 
 ### Check SONAME
 ```shell
-objdump -p libnvidia-nscq.so.[4-9][0-9][0-9]* | grep SONAME | awk -F ".so." '{print $2}'
-> 1
+objdump -p /dev/stdin < $(find -type f -name "libnvidia-nscq.so.*") | \
+grep SONAME | awk -F ".so." '{print $2}'
+> 2
 ```
 
 ### Fill variables
 ```shell
-make -f debian/rules fill_templates VERSION=460.32.03 BRANCH=460 DEB_HOST_ARCH=amd64
+make -f debian/rules fill_templates VERSION=525.85.12 BRANCH=525 DEB_HOST_ARCH=amd64
 ```
-> _note:_ branch is the first `.` delimited field in the driver version, ex: `460` in `460.32.03`
+> _note:_ branch is the first `.` delimited field in the driver version, ex: `525` in `525.85.12`
 
 ### Generate .deb packages
 ```shell
