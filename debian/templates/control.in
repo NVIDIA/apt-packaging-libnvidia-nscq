@@ -29,7 +29,7 @@ Standards-Version: 3.8.0
 Package: libnvidia-nscq-#BRANCH#
 Architecture: amd64 arm64
 Depends: ${misc:Depends}
-Provides: libnvidia-nscq, nscq#SONAME#, nscq-api
+Provides: libnvidia-nscq, nscq#SONAME#
 Replaces: libnvidia-nscq
 Conflicts: libnvidia-nscq
 Description: NVSwitch Configuration and Query library

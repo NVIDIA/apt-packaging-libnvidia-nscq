@@ -131,10 +131,12 @@ make -f debian/rules fill_templates VERSION=525.85.12 BRANCH=525 DEB_HOST_ARCH=a
 ### Generate .deb packages
 ```shell
 DEB_BUILD_OPTIONS=nostrip DEB_HOST_ARCH=amd64 \
-dpkg-buildpackage -b
+dpkg-buildpackage -b -aamd64
 cd ..
 ls *.deb
 ```
+> _note:_ for SBSA (arm64 server), pass `DEB_HOST_ARCH=arm64` and `-aarm64`
+
 
 ## Related
 
